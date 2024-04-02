@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebVR Virtual Tour</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+        }
+
+        a-scene {
+            display: block;
+            position: absolute;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        a-sphere {
+            cursor:crosshair;
+        }
+        a-sphere:hover {
+            cursor: pointer;
+            background-color: chartreuse;
+            width: 100px;
+            height: 100px;
+        }
+
+        a-text {
+            color: white;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 0.5em;
+            border-radius: 0.1em;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Scene 1: Entrance -->
+    <a-scene>
+        <!-- 360-degree image as the background -->
+        <a-sky src="3d image.jpg" rotation="0 -30 0"></a-sky>
+
+        <!-- Hotspot to transition to Scene 2 -->
+        <a-sphere position="1 2 -3" radius="0.2" color="red" onclick="goToNextScene()"></a-sphere>
+
+        <!-- Text element to display information -->
+        <a-text position="0 2 -3" value="Welcome to the Entrance"></a-text>
+    </a-scene>
+
+    <!-- Scene 2: Garden -->
+    <a-scene embedded>
+        <!-- 360-degree image as the background -->
+        <a-sky src="Avengers Wallpaper.jpg" rotation="0 -30 0"></a-sky>
+
+        <!-- Hotspot to return to Scene 1 -->
+        <a-sphere position="-1 2 3" radius="0.2" color="green" onclick="goToPreviousScene()"></a-sphere>
+
+        <!-- Text element to display information -->
+        <a-text position="0 2 -3" value="Explore the Beautiful Garden"></a-text>
+    </a-scene>
+
+    <script>
+        // Function to switch to Scene 2
+        function goToNextScene() {
+            document.querySelector('a-scene').setAttribute('visible', 'false');
+            document.querySelectorAll('a-scene')[1].setAttribute('visible', 'true');
+        }
+
+        // Function to switch back to Scene 1
+        function goToPreviousScene() {
+            document.querySelector('a-scene').setAttribute('visible', 'true');
+            document.querySelectorAll('a-scene')[0].setAttribute('visible', 'false');
+        }
+    </script>
+</body>
+</html>
